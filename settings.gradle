@@ -1,0 +1,33 @@
+pluginManagement {
+    repositories {
+        google()
+        maven { url 'https://jitpack.io' }
+        mavenCentral()
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        gradlePluginPortal()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        maven { url 'https://jitpack.io' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven{ url  'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
+
+        mavenCentral()
+    }
+}
+include ':app'
+include ':lib_base'
+include ':lib_network'
+include ':lib_voice'
+include ':module_joke'
+include ':module_weather'
+include ':module_voice_setting'
+include ':module_setting'
+include ':module_map'
+include ':module_developer'
+include ':module_constellation'
+include ':module_app_manager'
+rootProject.name = "VoiceAid"

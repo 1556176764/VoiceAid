@@ -1,0 +1,80 @@
+plugins {
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+}
+def root = rootProject.ext
+if (root.isModule) {
+    apply plugin: 'com.android.library'
+} else {
+    apply plugin: 'com.android.application'
+}
+
+//安卓属性
+android {
+
+    namespace 'com.github.moudle_app_manager'
+    compileSdk rootProject.android.compileSdk
+
+    defaultConfig {
+        if(!isModule){
+            applicationId rootProject.android.applicationId
+        }
+        minSdk rootProject.android.minSdk
+        targetSdk rootProject.android.targetSdk
+        versionCode rootProject.android.versionCode
+        versionName rootProject.android.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
+    }
+
+
+    //编译类型
+    buildTypes {
+        debug{
+
+        }
+        release {
+            minifyEnabled false
+            //是否混淆
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    //输出类型
+
+    //依赖操作
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    //动态替换资源
+    sourceSets {
+        main{
+            if(isModule){
+                manifest.srcFile  'src/main/AndroidManifest.xml'
+                //java.exclude 'xx.debug/xx' //过滤不了kotlin类
+            }else{
+                manifest.srcFile  'src/main/manifest/AndroidManifest.xml'
+            }
+        }
+    }
+    viewBinding {
+        enabled = true
+    }
+}
+
+//依赖
+dependencies {
+
+    implementation project(path: ':lib_base')
+    //运行时注解
+    kapt rootProject.depsLibs.arouterCompiler
+}

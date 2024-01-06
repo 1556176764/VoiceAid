@@ -1,0 +1,75 @@
+plugins {
+    id 'org.jetbrains.kotlin.android'
+    id 'com.android.library'
+
+}
+
+//安卓属性
+android {
+//    namespace 'com.github.voiceaid'
+//    compileSdk 33
+//
+//    defaultConfig {
+//        applicationId "com.github.voiceaid"
+//        minSdk 21
+//        targetSdk 33
+//        versionCode 1
+//        versionName "1.0"
+//
+//        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+//    }
+    namespace 'com.github.lib_network'
+    compileSdk rootProject.android.compileSdk
+
+    defaultConfig {
+
+        minSdk rootProject.android.minSdk
+        targetSdk rootProject.android.targetSdk
+        versionCode rootProject.android.versionCode
+        versionName rootProject.android.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+//        kapt {
+//            arguments {
+//                arg("AROUTER_MODULE_NAME", project.getName())
+//            }
+//        }
+    }
+
+
+    //编译类型
+    buildTypes {
+        debug{
+
+        }
+        release {
+            minifyEnabled false
+            //是否混淆
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    //输出类型
+
+    //依赖操作
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+//依赖
+dependencies {
+
+    implementation rootProject.depsLibs.coreKtx
+    implementation rootProject.depsLibs.appcompat
+    implementation rootProject.depsLibs.material
+
+    api rootProject.depsLibs.retrofit2
+    api rootProject.depsLibs.retrofit2Gson
+    api rootProject.depsLibs.loggingInterceptor
+    implementation files('libs\\error_prone_annotations-2.3.4.jar')
+    implementation files('libs\\error_prone_annotations-2.3.4.jar')
+}

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:alpha="0.5"
+        android:background="@android:color/black"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mChatListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+        <com.airbnb.lottie.LottieAnimationView
+            app:lottie_speed="2"
+            android:layout_margin="5dp"
+            app:lottie_fileName="vui_animation.json"
+            app:lottie_loop="true"
+            android:id="@+id/mLottieView"
+            android:layout_width="80dp"
+            android:layout_height="80dp"/>
+
+        <TextView
+            android:id="@+id/tvVoiceTips"
+            android:layout_marginStart="10dp"
+            android:text="正在聆听"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

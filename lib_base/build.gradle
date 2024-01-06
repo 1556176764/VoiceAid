@@ -1,0 +1,101 @@
+plugins {
+    id 'org.jetbrains.kotlin.android'
+    id 'com.android.library'
+    id 'kotlin-kapt'
+}
+
+
+//安卓属性
+android {
+
+    useLibrary 'org.apache.http.legacy'
+    namespace 'com.github.lib_base'
+    compileSdk rootProject.android.compileSdk
+
+    defaultConfig {
+
+        minSdk rootProject.android.minSdk
+        targetSdk rootProject.android.targetSdk
+        versionCode rootProject.android.versionCode
+        versionName rootProject.android.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['jnilibs']
+        }
+    }
+    //编译类型
+    buildTypes {
+        debug{
+
+        }
+        release {
+            minifyEnabled false
+            //是否混淆
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    //输出类型
+
+    //依赖操作
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+//依赖
+dependencies {
+
+
+    //kotlin基础库
+    api rootProject.depsLibs.coreKtx
+    //Android标准库
+    api rootProject.depsLibs.appcompat
+    //kotlin核心库
+    api rootProject.depsLibs.material
+    //协程
+    api rootProject.depsLibs.coroutinesCore
+    api rootProject.depsLibs.coroutinesAndroid
+    //EventBus
+    api rootProject.depsLibs.eventbus
+    //ARouter
+    api rootProject.depsLibs.aroutreApi
+    api rootProject.depsLibs.recycleView
+
+    //运行时注解
+    kapt rootProject.depsLibs.arouterCompiler
+    //权限申请框架，后续需要修改
+    api 'com.yanzhenjie:permission:2.0.3'
+    //viewPager
+    api rootProject.depsLibs.viewPagerView
+    //lottie
+    api rootProject.depsLibs.lottieView
+    //刷新
+    api rootProject.depsLibs.smartRefreshKernel
+    api rootProject.depsLibs.smartRefreshHeader
+    api rootProject.depsLibs.smartRefreshFooter
+
+    //导入百度地图
+    api fileTree(dir: 'libs', include: ['*.jar','*.aar'])
+    //implementation(name:'BaiduLBS_Android', ext:'aar')
+    api files('libs/BaiduLBS_Android.jar')
+//    api files('libs/protobuf_gens-map.jar')
+//    api files('libs/protobuf-java-2.3.0-micro.jar')
+//    api files('libs/javapoet-1.9.0.jar')
+    implementation files('libs/error_prone_annotations-2.3.4.jar')
+
+    api project(path:':lib_voice')
+    api project(path:':lib_network')
+}

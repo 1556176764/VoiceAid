@@ -1,0 +1,68 @@
+plugins {
+    id 'org.jetbrains.kotlin.android'
+    id 'com.android.library'
+}
+
+//安卓属性
+android {
+
+    namespace 'com.github.lib_voice'
+    compileSdk rootProject.android.compileSdk
+
+    defaultConfig {
+
+        minSdk rootProject.android.minSdk
+        targetSdk rootProject.android.targetSdk
+        versionCode rootProject.android.versionCode
+        versionName rootProject.android.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+//        kapt {
+//            arguments {
+//                arg("AROUTER_MODULE_NAME", project.getName())
+//            }
+//        }
+    }
+
+
+    //编译类型
+    buildTypes {
+        debug{
+
+        }
+        release {
+            minifyEnabled false
+            //是否混淆
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    //输出类型
+
+    //依赖操作
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+//    sourceSets {
+//        main {
+//            jniLibs.srcDirs = ['jnilibs']
+//        }
+//    }
+}
+
+//依赖
+dependencies {
+    api fileTree(dir: 'libs', include: '*.jar')
+    implementation rootProject.depsLibs.coreKtx
+    implementation rootProject.depsLibs.appcompat
+    implementation rootProject.depsLibs.material
+
+    //百度TTS库
+    api files('libs/bdtts.jar')
+
+    api files('libs/bdasr.jar')
+    implementation files('libs\\error_prone_annotations-2.3.4.jar')
+}

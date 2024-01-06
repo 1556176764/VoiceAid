@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">module_joke</string>
+    <string name="app_media_play">播放</string>
+    <string name="app_media_pause">暂停</string>
+</resources>

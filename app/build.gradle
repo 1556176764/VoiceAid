@@ -1,0 +1,98 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+}
+
+//安卓属性
+android {
+    signingConfigs {
+        release {
+        storeFile file('D:\\Project\\VoiceAid\\app\\src\\main\\jks\\voiceaid.jks')
+            storePassword '123456'
+            keyAlias '123456'
+            keyPassword '123456'
+        }
+    }
+
+//    namespace 'com.github.voiceaid'
+//    compileSdk 33
+//
+//    defaultConfig {
+//        applicationId "com.github.voiceaid"
+//        minSdk 21
+//        targetSdk 33
+//        versionCode 1
+//        versionName "1.0"
+//
+//        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+//    }
+    namespace 'com.github.voiceaid'
+    compileSdk rootProject.android.compileSdk
+
+    defaultConfig {
+        applicationId rootProject.android.applicationId
+        minSdk rootProject.android.minSdk
+        targetSdk rootProject.android.targetSdk
+        versionCode rootProject.android.versionCode
+        versionName rootProject.android.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
+    }
+
+
+    //编译类型
+    buildTypes {
+        debug{
+
+        }
+        release {
+            minifyEnabled false
+            //是否混淆
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    //输出类型
+
+    //依赖操作
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    viewBinding {
+        enabled = true
+    }
+}
+
+//依赖
+dependencies {
+
+//    implementation rootProject.depsLibs.coreKtx
+//    implementation rootProject.depsLibs.appcompat
+//    implementation rootProject.depsLibs.material
+    implementation project(path: ':lib_base')
+
+    if(isModule){
+        implementation project(path: ':lib_network')
+        implementation project(path: ':lib_voice')
+        implementation project(path: ':module_app_manager')
+        implementation project(path: ':module_constellation')
+        implementation project(path: ':module_developer')
+        implementation project(path: ':module_joke')
+        implementation project(path: ':module_map')
+        implementation project(path: ':module_setting')
+        implementation project(path: ':module_voice_setting')
+        implementation project(path: ':module_weather')
+    }
+    //运行时注解
+    kapt rootProject.depsLibs.arouterCompiler
+}
